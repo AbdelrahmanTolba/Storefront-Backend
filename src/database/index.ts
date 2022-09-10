@@ -4,7 +4,7 @@ import config from '../config';
 
 dotenv.config();
 
-const client = new Pool({
+const Client = new Pool({
   port: parseInt(config.dbPort as string),
   host: config.host,
   user: config.user,
@@ -12,4 +12,4 @@ const client = new Pool({
   password: config.password,
 });
 
-export default client;
+export default Client;

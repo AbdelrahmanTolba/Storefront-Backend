@@ -11,7 +11,6 @@ const {
   POSTGRES_DB,
   POSTGRES_DB_TEST,
   POSTGRES_PASSWORD,
-  TOKEN_SECRET,
 } = process.env;
 
 export default {
