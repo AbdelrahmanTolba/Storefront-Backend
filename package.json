@@ -24,9 +24,11 @@
   "homepage": "https://github.com/AbdelrahmanTolba/Storefront-Backend#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/jasmine": "^4.3.0",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.16",
     "@types/pg": "^8.6.5",
