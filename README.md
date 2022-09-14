@@ -1,54 +1,99 @@
 # Storefront Backend Project
+> This project is part of the Udacity Backend Javascript Nanodegree
 
-## Getting Started
+### Build with
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+- [TypeScript](https://www.typescriptlang.org/)
+- [NodeJS](https://nodejs.org/en/)
+- [Expressjs](https://expressjs.com/)
+- [postgresql](https://www.postgresql.org/)
+- [JWT](https://www.postgresql.org/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Jasmine](https://jasmine.github.io/)
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+# Getting Started
+ 
+Create ```.env``` file in the root directory
+```sh
+    PORT=3000
+    ENV=dev
 
-## Steps to Completion
+    POSTGRES_HOST=127.0.0.1
+    POSTGRES_PORT=5432
+    POSTGRES_USER=storefront_user
+    POSTGRES_DB=storefront_db
+    POSTGRES_DB_TEST=storefront_db_test
+    POSTGRES_PASSWORD=password123
+    
+    BCRYPT_PASSWORD=breaking-bad-1234
+    SALT_ROUNDS=10
+    TOKEN_SECRET=hello-from-token-secret
+ ```
 
-### 1. Plan to Meet Requirements
+# Setup
+> This is an list of needed instructions to set up your project locally, to get a local copy up and running follow these instructuins.
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+### Scripts
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+**_Prettier_**
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+```sh
+  npm run prettier
+```
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+**_Lint_**
 
-### 2.  DB Creation and Migrations
+```sh
+  npm run lint
+```
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+**_Start server_**
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+```sh
+  npm run start
+```
 
-### 3. Models
+**_Start server & tests_**
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+```sh
+  npm run test
+```
 
-### 4. Express Handlers
+### Run Locally
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+1. **_Clone the repository_**
 
-### 5. JWTs
+```sh
+$ git clone [https://github.com/AbdelrahmanTolba/Storefront-Backend.git]
+```
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
+2. **_Navigate to repository directory_**
 
-### 6. QA and `README.md`
+```sh
+$ cd Storefront-Backend
+```
 
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
+3. **_Install dependencies_**
 
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+```sh
+$ npm install
+```
+
+4. **_Create 2 databases_**
+
+```sh
+CREATE DATABASE storefront_db;
+CREATE DATABSE  storefront_db_test; 
+```
+
+5. **_Running on development mode_**
+
+```sh
+$ npm run start
+```
+
+6. **_Running Tests_**
+
+```sh
+$ npm run test
+```
