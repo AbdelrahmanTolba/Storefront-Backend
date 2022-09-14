@@ -10,7 +10,7 @@
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
     "lint": "eslint . --ext .ts",
     "format": "eslint src/**/*.ts --fix",
-    "test": "npm run build && jasmine"
+    "test": "set ENV=test && db-migrate --env test up && npm run build && jasmine && db-migrate reset --env test"
   },
   "repository": {
     "type": "git",

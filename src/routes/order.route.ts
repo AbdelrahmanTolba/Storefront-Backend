@@ -14,8 +14,8 @@ const orderRoute = express.Router();
 orderRoute.get('/', showAllOrders);
 orderRoute.get('/:id', showOrder);
 orderRoute.get('/userOrders/:id', tokenValidationMiddleWare, getOrdersByUserId);
-orderRoute.put('/', tokenValidationMiddleWare, updateOrder);
-orderRoute.post('/', tokenValidationMiddleWare, createNewOrder);
+orderRoute.put('/edit', tokenValidationMiddleWare, updateOrder);
+orderRoute.post('/create', tokenValidationMiddleWare, createNewOrder);
 orderRoute.delete('/:id', tokenValidationMiddleWare, deleteOrder);
 
 export default orderRoute;

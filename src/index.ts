@@ -9,6 +9,8 @@ import cors from 'cors';
 import userRoute from './routes/user.route';
 import productRoute from './routes/product.route';
 import orderRoute from './routes/order.route';
+import loginUserRoute from './routes/authantication.route';
+import { getTopFive } from './controllers/products';
 
 const app: express.Application = express();
 const port = config.port || 3000;
@@ -35,6 +37,8 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/users', userRoute);
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
+app.use('/', loginUserRoute);
+
 
 app.listen(port, function () {
   console.log(`starting app on: ${address}`);

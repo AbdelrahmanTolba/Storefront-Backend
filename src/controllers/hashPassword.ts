@@ -5,4 +5,15 @@ const hashingUserPassword = (password: string) => {
   const salt: number = parseInt(config.salt as string, 10);
   return bcrypt.hashSync(password + config.pepper, salt);
 };
-export default hashingUserPassword;
+const checkingOnPassword = (
+  plainTextPassword: string,
+  hashedPassword: string
+): boolean =>
+  bcrypt.compareSync(
+    `${plainTextPassword}${config.pepper}`,
+    `${hashedPassword}`
+  )
+    ? true
+    : false;
+
+export { hashingUserPassword, checkingOnPassword };

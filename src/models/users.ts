@@ -1,6 +1,6 @@
 import { User } from './../interfaces/user.interface';
 import Client from '../database';
-import hashingUserPassword from '../controllers/hashPassword';
+import { hashingUserPassword } from '../controllers/hashPassword';
 
 export class UserStore {
   async index(): Promise<User[]> {
@@ -29,9 +29,10 @@ export class UserStore {
     try {
       const conn = await Client.connect();
       const sql =
-        'INSERT INTO users (firstname, lastname, password) VALUES ($1, $2, $3) RETURNING *';
+        'INSERT INTO users (email, firstname, lastname, password) VALUES ($1, $2, $3, $4) RETURNING *';
 
       const result = await conn.query(sql, [
+        u.email,
         u.firstname,
         u.lastname,
         hashingUserPassword(u.password),
@@ -46,9 +47,10 @@ export class UserStore {
     try {
       const conn = await Client.connect();
       const sql =
-        'UPDATE users SET firstname = ($1),lastname = ($2),password = ($3) WHERE id = ($4) RETURNING *';
+        'UPDATE users SET email = ($1), firstname = ($2), lastname = ($3), password = ($4) WHERE id = ($5) RETURNING *';
 
       const result = await conn.query(sql, [
+        u.email,
         u.firstname,
         u.lastname,
         hashingUserPassword(u.password),
@@ -63,8 +65,7 @@ export class UserStore {
   async delete(id: number): Promise<User[]> {
     try {
       const conn = await Client.connect();
-      const sql = 'DELETE FROM users WHERE id = ($1)';
-
+      const sql = 'DELETE FROM users WHERE id = ($1);';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];

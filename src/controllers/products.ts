@@ -41,7 +41,7 @@ const createNewProduct = async (req: Request, res: Response) => {
     };
 
     if (!productInfo.name || !productInfo.price) {
-      res.status(404);
+      res.status(400);
       res.json({
         error: `name is < ${productInfo.name} >, price is < ${productInfo.price} >`,
       });

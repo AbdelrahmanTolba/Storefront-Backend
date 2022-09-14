@@ -1,5 +1,5 @@
 {
-  "defaultEnv": { "ENV": "NODE_ENV" },
+  "defaultEnv": { "ENV": "ENV" },
   "dev": {
     "driver": "pg",
     "host": { "ENV": "POSTGRES_HOST" },
@@ -11,7 +11,7 @@
     "driver": "pg",
     "host": { "ENV": "POSTGRES_HOST" },
     "user": { "ENV": "POSTGRES_user" },
-    "database": { "ENV": "POSTGRES_DB" },
+    "database": { "ENV": "POSTGRES_DB_TEST" },
     "password": { "ENV": "POSTGRES_PASSWORD" }
   }
 }

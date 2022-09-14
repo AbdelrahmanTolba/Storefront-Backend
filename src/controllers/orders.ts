@@ -1,7 +1,6 @@
 import { OrderStore } from './../models/orders';
 import { Order } from './../interfaces/order.interface';
-import express, { Request, Response } from 'express';
-import tokenValidationMiddleWare from '../middlewares/authantication.middleware';
+import { Request, Response } from 'express';
 
 const Orders = new OrderStore();
 
@@ -44,9 +43,9 @@ const createNewOrder = async (req: Request, res: Response) => {
     };
 
     if (!orderInfo.product_id || !orderInfo.user_id || !orderInfo.quantity) {
-      res.status(404);
+      res.status(400);
       res.json({
-        status: 404,
+        status: 400,
         error: `product_id is < ${orderInfo.product_id} >, user_id is < ${orderInfo.user_id} >, quantity is < ${orderInfo.quantity}, status is < ${orderInfo.status} > and it must be <active | complete>`,
       });
       return;
