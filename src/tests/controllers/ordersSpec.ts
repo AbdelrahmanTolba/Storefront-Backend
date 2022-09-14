@@ -47,6 +47,7 @@ describe('Test Orders controller', () => {
       quantity: 4,
       status: 'complete',
     };
+    console.log(order2);
 
     await Orders.create(order1);
     await Orders.create(order2);
@@ -56,8 +57,18 @@ describe('Test Orders controller', () => {
     const response = await request.get('/orders');
     expect(response.status).toBe(200);
   });
-  it('get order method', async () => {
+  it('get order', async () => {
     const response = await request.get('/orders/2');
+    expect(response.status).toBe(200);
+  });
+
+  it('get order by user id ', async () => {
+    const response = await request
+      .get('/orders/userorders/1')
+      .set(
+        'Authorization',
+        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
+      );
     expect(response.status).toBe(200);
   });
 

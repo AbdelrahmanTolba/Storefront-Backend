@@ -13,7 +13,7 @@ const orderRoute = express.Router();
 
 orderRoute.get('/', showAllOrders);
 orderRoute.get('/:id', showOrder);
-orderRoute.get('/userOrders/:id', tokenValidationMiddleWare, getOrdersByUserId);
+orderRoute.get('/userorders/:id', tokenValidationMiddleWare, getOrdersByUserId);
 orderRoute.put('/edit', tokenValidationMiddleWare, updateOrder);
 orderRoute.post('/create', tokenValidationMiddleWare, createNewOrder);
 orderRoute.delete('/:id', tokenValidationMiddleWare, deleteOrder);

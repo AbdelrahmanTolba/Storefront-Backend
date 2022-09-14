@@ -7,9 +7,7 @@ const Orders = new OrderStore();
 const showAllOrders = async (_req: Request, res: Response) => {
   try {
     const order: Order[] = await Orders.index();
-    res.json({
-      order,
-    });
+    res.json(order);
   } catch (error) {
     res.status(402);
     res.json({
