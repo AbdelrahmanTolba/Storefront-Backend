@@ -5,38 +5,74 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- index: `'products/' [GET]`
+- show: `'products/:id' [GET]`
+- create (args: Product)[token required]: `'products/create' [POST]`
+- [OPTIONAL] Top 5 most popular products `'products/togfive' [GET]`
+- [ADDED] update: `'products/edit  [PUT]`
+- [ADDED] Delete: `'products/:id  [DELETE]`
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] `'users/' [GET]`
+- Show [token required] 'users/:id' [GET]`
+- Create 'users/create' [POST]`
+- [ADDED] update [token required]: `'users/edit  [PUT]`
+- [ADDED] Delete [token required]: `'users/:id  [DELETE]`
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
-
+- [ADDED] index: `'/orders  [GET]`
+- [ADDED] show: `'/orders/:id  [GET]`
+- Current Order by user (args: user id)[token required] '/orders/userOrders/:id  [GET]`
+- [ADDED] create [token required]: `'orders/create  [POST]`
+- [ADDED] update [token required]: `'orders/edit  [PUT]`
+- [ADDED] Delete [token required]: `'orders/:id  [DELETE]`
 ## Data Shapes
 #### Product
--  id
-- name
-- price 
-- [OPTIONAL] category
-
+- id :number
+- name :string
+- price :number
+- [OPTIONAL] category :string
+```sh
+ TABLE IF NOT EXISTS products(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  price INTEGER NOT NULL,
+  category VARCHAR(50) 
+  );
+```
 #### User
-- id
-- firstName
-- lastName
-- password
+- id :number
+- email :string 
+- firstName :string
+- lastName :string
+- password :string
+
+```sh
+   TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(250) NOT NULL UNIQUE,
+    firstname VARCHAR(20) NOT NULL,
+    lastname VARCHAR(20) NOT NULL,
+    password VARCHAR(250) NOT NULL
+  );
+```
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id :number
+- id of each product in the order :number
+- quantity of each product in the order :number
+- user_id :number
+- status of order (active or complete):string
+
+```sh
+  TYPE mood AS ENUM ('active', 'complete');
+
+  TABLE IF NOT EXISTS orders(
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL REFERENCES products(id),
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  quantity INTEGER NOT NULL,
+  status mood NOT NULL
+  );
+```
 
