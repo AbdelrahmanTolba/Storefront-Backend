@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import config from '../config';
+import { verifyToken } from '../controllers/tokens';
 
 const tokenValidationMiddleWare = (
   req: Request,
@@ -18,7 +17,7 @@ const tokenValidationMiddleWare = (
   }
   try {
     const token: string = authHeader.split(' ')[1];
-    jwt.verify(token, `${config.tokenSecret}`);
+    verifyToken(token);
     next();
   } catch (error) {
     res.status(404);

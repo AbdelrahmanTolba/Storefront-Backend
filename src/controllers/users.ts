@@ -1,8 +1,7 @@
 import { User } from './../interfaces/user.interface';
 import { Request, Response } from 'express';
 import { UserStore } from '../models/users';
-import jwt from 'jsonwebtoken';
-import config from '../config';
+import { getToken } from './tokens';
 
 const Users = new UserStore();
 
@@ -58,7 +57,7 @@ const createUser = async (req: Request, res: Response) => {
     }
 
     const user: User = await Users.create(userInfo);
-    const token = jwt.sign({ userInfo: user }, `${config.tokenSecret}`);
+    const token = getToken(user);
     res.json(token);
   } catch (error) {
     res.status(400);
@@ -95,10 +94,9 @@ const updateUser = async (req: Request, res: Response) => {
     }
 
     const user: User = await Users.update(userInfo);
-    const token = jwt.sign({ userInfo: user }, `${config.tokenSecret}`);
+    const token = getToken(user);
     res.json(token);
   } catch (error) {
-    console.log(error);
     res.status(400);
     res.json({
       status: 400,
@@ -111,7 +109,6 @@ const updateUser = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId: number = req.params.id as unknown as number;
-    console.log(userId);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const user: User[] = await Users.delete(userId);
     res.json(`user  ${userId} is deleted successfully`);

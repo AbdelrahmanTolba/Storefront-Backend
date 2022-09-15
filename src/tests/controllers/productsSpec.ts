@@ -1,11 +1,9 @@
 import { ProductStore } from './../../models/products';
-import jwt from 'jsonwebtoken';
-
 import supertest from 'supertest';
 import app from '../../index';
-import config from '../../config';
 import Client from '../../database';
 import { Product } from '../../interfaces/product.interface';
+import { getToken } from '../../controllers/tokens';
 
 const request = supertest(app);
 
@@ -56,10 +54,7 @@ describe('Test Products controller', () => {
   it('Create product with wrong data', async () => {
     const response = await request
       .post('/products/create')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         name: 'Handfree',
         category: 'Electornics',
@@ -70,10 +65,7 @@ describe('Test Products controller', () => {
   it('Create product with correct data', async () => {
     const response = await request
       .post('/products/create')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         name: 'Mobile',
         price: 1000,
@@ -86,10 +78,7 @@ describe('Test Products controller', () => {
   it('update product data ', async () => {
     const response = await request
       .put('/products/edit')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         id: 4,
         name: 'laptop',
@@ -102,19 +91,11 @@ describe('Test Products controller', () => {
   it('delete Product data ', async () => {
     const response = await request
       .delete('/products/4')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
   it('get to five Products data ', async () => {
-    const response = await request
-      .get('/products/topfive')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+    const response = await request.get('/products/topfive');
     expect(response.status).toBe(200);
   });
   afterAll(async () => {

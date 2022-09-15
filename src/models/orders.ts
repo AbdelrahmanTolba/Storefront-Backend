@@ -51,7 +51,6 @@ export class OrderStore {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log(error);
       throw new Error(`Can't get user orders => ${error}`);
     }
   }

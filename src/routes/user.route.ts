@@ -10,7 +10,7 @@ import tokenValidationMiddleWare from '../middlewares/authantication.middleware'
 
 const userRoute = express.Router();
 
-userRoute.get('/', showAll);
+userRoute.get('/',tokenValidationMiddleWare, showAll);
 userRoute.get('/:id', tokenValidationMiddleWare, showUser);
 userRoute.post('/create', createUser);
 userRoute.put('/edit', tokenValidationMiddleWare, updateUser);

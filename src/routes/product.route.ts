@@ -11,7 +11,7 @@ import tokenValidationMiddleWare from '../middlewares/authantication.middleware'
 
 const productRoute = express.Router();
 
-productRoute.get('/topfive', tokenValidationMiddleWare, getTopFive);
+productRoute.get('/topfive', getTopFive);
 productRoute.get('/', showAllProducts);
 productRoute.get('/:id', showProduct);
 productRoute.post('/create', tokenValidationMiddleWare, createNewProduct);

@@ -1,7 +1,6 @@
 import { LoggingStore } from '../models/authantication';
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import config from '../config';
+import { getToken } from './tokens';
 
 const Users = new LoggingStore();
 
@@ -29,7 +28,7 @@ const logging = async (req: Request, res: Response) => {
         .status(400);
       return;
     }
-    const token = jwt.sign(user, `${config.tokenSecret}`);
+    const token = getToken(user);
     res
       .json({
         user: `${user.firstname} ${user.lastname}`,
@@ -53,9 +52,8 @@ const authantication = async (req: Request, res: Response) => {
       req.body.email,
       req.body.password
     );
-    console.log(user);
     if (user) {
-      const token = jwt.sign(user, `${config.tokenSecret}`);
+      const token = getToken(user);
       res.json({
         User: `${user.firstname} ${user.lastname}`,
         status: 'Authanticated',

@@ -1,10 +1,9 @@
-import jwt from 'jsonwebtoken';
 import { User } from './../../interfaces/user.interface';
 import { UserStore } from './../../models/users';
 import supertest from 'supertest';
 import app from '../../index';
-import config from '../../config';
 import Client from '../../database';
+import { getToken } from '../../controllers/tokens';
 
 const request = supertest(app);
 
@@ -49,16 +48,16 @@ describe('Test Users controller', () => {
   });
 
   it('get all users method', async () => {
-    const response = await request.get('/users');
+    const response = await request
+      .get('/users')
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
+
   it('get user method', async () => {
     const response = await request
       .get('/users/3')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
 
@@ -85,10 +84,7 @@ describe('Test Users controller', () => {
   it('update user data ', async () => {
     const response = await request
       .put('/users/edit')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         id: 4,
         email: 'mahmoud@gmail.com',
@@ -101,10 +97,7 @@ describe('Test Users controller', () => {
   it('delete user data ', async () => {
     const response = await request
       .delete('/users/4')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
 

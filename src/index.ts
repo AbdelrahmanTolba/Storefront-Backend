@@ -16,7 +16,6 @@ const port = config.port || 3000;
 
 const address: string = '0.0.0.0:3000';
 
-console.log(config);
 //PARSING MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

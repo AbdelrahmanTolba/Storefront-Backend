@@ -51,7 +51,6 @@ const createNewOrder = async (req: Request, res: Response) => {
     const order: Order = await Orders.create(orderInfo);
     res.json(order);
   } catch (error) {
-    console.log(error);
     res.status(402);
     res.json({
       status: 402,
@@ -87,7 +86,6 @@ const updateOrder = async (req: Request, res: Response) => {
     const order: Order = await Orders.update(orderInfo);
     res.json(order);
   } catch (error) {
-    console.log(error);
     res.status(402);
     res.json({
       status: 402,

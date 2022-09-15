@@ -50,7 +50,6 @@ const createNewProduct = async (req: Request, res: Response) => {
     const product: Product = await Products.create(productInfo);
     res.json(product);
   } catch (error) {
-    console.log(error);
     res.status(401);
     res.json({
       status: 401,
@@ -79,7 +78,6 @@ const updateProduct = async (req: Request, res: Response) => {
     const product: Product = await Products.update(productInfo);
     res.json(product);
   } catch (error) {
-    console.log(error);
     res.status(401);
     res.json({
       status: 401,

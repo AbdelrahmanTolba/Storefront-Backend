@@ -1,14 +1,13 @@
 import { OrderStore } from './../../models/orders';
-import jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import app from '../../index';
-import config from '../../config';
 import Client from '../../database';
 import { UserStore } from '../../models/users';
 import { ProductStore } from '../../models/products';
 import { Product } from '../../interfaces/product.interface';
 import { Order } from '../../interfaces/order.interface';
 import { User } from '../../interfaces/user.interface';
+import { getToken } from '../../controllers/tokens';
 
 const request = supertest(app);
 
@@ -47,38 +46,34 @@ describe('Test Orders controller', () => {
       quantity: 4,
       status: 'complete',
     };
-    console.log(order2);
-
     await Orders.create(order1);
     await Orders.create(order2);
   });
 
   it('get all orders method', async () => {
-    const response = await request.get('/orders');
+    const response = await request
+      .get('/orders')
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
   it('get order', async () => {
-    const response = await request.get('/orders/2');
+    const response = await request
+      .get('/orders/2')
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
 
   it('get order by user id ', async () => {
     const response = await request
       .get('/orders/userorders/1')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
 
   it('Create order with wrong data', async () => {
     const response = await request
       .post('/orders/create')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         product_id: productId,
         quantity: 1,
@@ -90,10 +85,7 @@ describe('Test Orders controller', () => {
   it('Create order with correct data', async () => {
     const response = await request
       .post('/orders/create')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         product_id: productId,
         user_id: userId,
@@ -107,10 +99,7 @@ describe('Test Orders controller', () => {
   it('update order data ', async () => {
     const response = await request
       .put('/orders/edit')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      )
+      .set('Authorization', `Bearer ${getToken('testing data')}`)
       .send({
         id: 2,
         product_id: productId,
@@ -124,10 +113,7 @@ describe('Test Orders controller', () => {
   it('delete order data ', async () => {
     const response = await request
       .delete('/orders/2')
-      .set(
-        'Authorization',
-        `Bearer ${jwt.sign('testing data', `${config.tokenSecret}`)}`
-      );
+      .set('Authorization', `Bearer ${getToken('testing data')}`);
     expect(response.status).toBe(200);
   });
   afterAll(async () => {
