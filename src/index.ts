@@ -10,20 +10,19 @@ import userRoute from './routes/user.route';
 import productRoute from './routes/product.route';
 import orderRoute from './routes/order.route';
 import loginUserRoute from './routes/authantication.route';
-import { getTopFive } from './controllers/products';
 
 const app: express.Application = express();
 const port = config.port || 3000;
 
 const address: string = '0.0.0.0:3000';
 
+console.log(config);
 //PARSING MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//HTTP LOGGER MIDDLEWARE
-// app.use(morgan('comman'));
 //HTTP SECUIRE
 app.use(helmet());
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200,
@@ -38,7 +37,6 @@ app.use('/users', userRoute);
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
 app.use('/', loginUserRoute);
-
 
 app.listen(port, function () {
   console.log(`starting app on: ${address}`);
